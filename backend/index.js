@@ -104,7 +104,7 @@ app.post('/gemini/trip-advisor', async function (req, res) {
         let content = response.candidates[0].content.parts[0].text;
         // JSON.parse() will convert a JSON string into a JSON object
         console.log(content);
-        const jsonContent = content.replace(/"```json"/g, "").replace(/"```"/g, "").trim();
+        const jsonContent = content.replace(/```json/g, "").replace(/```/g, "").trim();
         const groundingSupport = response.candidates[0].groundingMetadata.groundingChunks;
 
         res.json({

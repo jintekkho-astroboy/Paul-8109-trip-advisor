@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 // read the content of the .env file and put into
 // an object named process.env
 require("dotenv").config();
@@ -20,6 +21,9 @@ const app = express();
 // enable JSON processing
 app.use(express.json());
 
+// enable cross origins resources sharing for all domains
+app.use(cors());
+
 // all routes must be defined before app.listen
 app.get("/live", function (req, res) {
     res.send("Still alive");
@@ -27,6 +31,7 @@ app.get("/live", function (req, res) {
 
 app.post('/gemini/chat', async function (req, res) {
     try {
+        // get from the user's request object the value fo the userMessage key
         const userMessage = req.body.userMessage;
         const prompt = `You are a helpful assistant. User asks: ${userMessage}`;
         // ai is the GoogleGenAI object

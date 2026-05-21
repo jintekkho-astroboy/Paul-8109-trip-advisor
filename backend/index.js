@@ -103,8 +103,7 @@ app.post('/gemini/trip-advisor', async function (req, res) {
 
         let content = response.candidates[0].content.parts[0].text;
         // JSON.parse() will convert a JSON string into a JSON object
-        console.log(content);
-        const jsonContent = content.replace(/```json/g, "").replace(/```/g, "").trim();
+        const jsonContent = JSON.parse(content.replace(/```json/g, "").replace(/```/g, "").trim());
         const groundingSupport = response.candidates[0].groundingMetadata.groundingChunks;
 
         res.json({
@@ -124,4 +123,4 @@ app.post('/gemini/trip-advisor', async function (req, res) {
 // app.listen should always be the last thing in your index.js
 app.listen(process.env.PORT || 3000, function () {
     console.log("Server is listening at port 3000");
-})JSON.parse(
+})
